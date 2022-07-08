@@ -6,3 +6,9 @@ class LinkMapping(models.Model):
     original_url = models.CharField(max_length=256)
     hash = models.CharField(max_length=10, unique=True, db_index=True)
     creation_date = models.DateTimeField('creation date')
+
+
+class Question(models.Model):
+    original_url = models.CharField(max_length=256)
+    hash = models.CharField(max_length=10)
+    creation_date = models.DateTimeField('creation date')

@@ -1,3 +1,6 @@
+version : "3"
+
+
 services:
   web:
     build:
@@ -6,20 +9,19 @@ services:
     command: gunicorn urlshortener.wsgi:application --bind 0.0.0.0:8000
     ports:
       - 8000:8000
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - .env
     depends_on:
       - db
-  db:
-    image: postgres
-    volumes:
-      - postgresdb:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
 
-volumes:
-  postgresdb:
+  db:
+    image: postgres:latest
+    container_name: shortener_db
+    env_file:
+      - .env
+    environment:
+      - LANG:'ja_JP.UTF-8'
+      - LANGUAGE:'ja_JP.UTF-8'
+      - LC_ALL:'ja_JP.UTF-8'
+
+
